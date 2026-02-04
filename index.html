@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEAMS Pricing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #E31837;
+      --red-light: #fef2f2;
+      --dark: #1e293b;
+      --text: #334155;
+      --text-light: #64748b;
+      --text-muted: #94a3b8;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --bg-card: #f1f5f9;
+      --white: #ffffff;
+      --green: #059669;
+      --green-light: #d1fae5;
+      --amber: #d97706;
+      --amber-light: #fef3c7;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 32px 40px 48px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 32px;
+    }
+
+    .vehicle-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .vehicle-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    .vin {
+      font-family: 'SF Mono', Monaco, Consolas, monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .actions { display: flex; gap: 10px; }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--bg); }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--dark) 0%, #334155 100%);
+      border-radius: 12px;
+      padding: 32px 40px;
+      margin-bottom: 24px;
+      color: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-content h2 {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .hero-price {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -1px;
+    }
+
+    .hero-badge {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-badge.below { background: var(--green); color: var(--white); }
+    .hero-badge.above { background: var(--amber); color: var(--white); }
+    .hero-badge.at { background: rgba(255,255,255,0.2); color: var(--white); }
+
+    /* Formula Display */
+    .formula-section {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .formula-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .formula-equation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .formula-box {
+      text-align: center;
+    }
+
+    .formula-box .label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .formula-box .value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .formula-box .value.highlight {
+      color: var(--red);
+    }
+
+    .formula-operator {
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* Rate Bands */
+    .bands-section {
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .bands-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+
+    .band-card {
+      background: var(--bg-card);
+      border-radius: 8px;
+      padding: 16px 12px;
+      text-align: center;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .band-card.active {
+      background: var(--red-light);
+      border-color: var(--red);
+    }
+
+    .band-card .range {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+
+    .band-card .rate {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .band-card.active .rate {
+      color: var(--red);
+    }
+
+    /* Comparison Table */
+    .comparison-section {
+      margin-bottom: 32px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .comparison-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 14px 20px;
+      background: var(--dark);
+      color: var(--white);
+    }
+
+    .comparison-table td {
+      padding: 16px 20px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table .label {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .comparison-table .value {
+      text-align: right;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .comparison-table .value.primary {
+      color: var(--red);
+      font-size: 16px;
+    }
+
+    .comparison-table .delta {
+      text-align: right;
+      font-size: 13px;
+    }
+
+    .comparison-table .delta.positive { color: var(--green); }
+    .comparison-table .delta.negative { color: var(--red); }
+
+    /* Profit Targets */
+    .targets-section {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 32px;
+    }
+
+    .targets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 20px;
+    }
+
+    .target-card {
+      text-align: center;
+    }
+
+    .target-card .label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .target-card .value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .target-card .pct {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    /* Rate Card Reference */
+    .rate-card-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 32px;
+      margin-bottom: 32px;
+    }
+
+    .rate-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+
+    .rate-table th,
+    .rate-table td {
+      padding: 10px 16px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .rate-table th {
+      background: var(--bg-card);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .rate-table td {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rate-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .rate-table .highlight {
+      background: var(--red-light);
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-meta {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-item span:first-child {
+      font-weight: 500;
+      margin-right: 6px;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 80px 40px;
+    }
+
+    .empty-state h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      color: var(--text-light);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="app"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const data = {
+      year_make_model: params.get('year_make_model') || 'Unknown Vehicle',
+      stock_number: params.get('stock_number'),
+      vin: params.get('vin'),
+      teams_price: parseFloat(params.get('teams_price')) || 0,
+      teams_profit: parseFloat(params.get('teams_profit')) || 0,
+      teams_profit_rate: parseFloat(params.get('teams_profit_rate')) || 0,
+      teams_price_tier: parseInt(params.get('teams_price_tier')) || 0,
+      teams_cost_basis: parseFloat(params.get('teams_cost_basis')) || 0,
+      teams_vs_market: parseFloat(params.get('teams_vs_market')) || 0,
+      teams_vs_market_pct: parseFloat(params.get('teams_vs_market_pct')) || 0,
+      price_internet: parseFloat(params.get('price_internet')) || 0,
+      recommended_price: parseFloat(params.get('recommended_price')) || 0,
+      teams_status: params.get('teams_status') || ''
+    };
+
+    // TEAMS bands from pricing.ts
+    const TEAMS_BANDS = [
+      { label: '< $15K', max: 15000, rate: 30 },
+      { label: '$15-20K', max: 20000, rate: 25 },
+      { label: '$20-30K', max: 30000, rate: 20 },
+      { label: '$30-40K', max: 40000, rate: 16 },
+      { label: '$40-50K', max: 50000, rate: 13 },
+      { label: '$50K+', max: Infinity, rate: 11 }
+    ];
+
+    // Profit targets
+    const PROFIT_TARGETS = {
+      front_pct: 0.33,
+      back_pct: 0.67,
+      avg_net_target: 5500
+    };
+
+    const fmt = {
+      price: v => {
+        if (!v && v !== 0) return '—';
+        return '$' + Math.round(v).toLocaleString();
+      },
+      pct: v => {
+        if (!v && v !== 0) return '—';
+        return v + '%';
+      },
+      delta: v => {
+        if (!v && v !== 0) return '—';
+        const sign = v >= 0 ? '+' : '';
+        return sign + '$' + Math.abs(Math.round(v)).toLocaleString();
+      }
+    };
+
+    function getActiveBandIndex(costBasis) {
+      for (let i = 0; i < TEAMS_BANDS.length; i++) {
+        if (costBasis <= TEAMS_BANDS[i].max) return i;
+      }
+      return TEAMS_BANDS.length - 1;
+    }
+
+    function getMarketPosition() {
+      const pct = data.teams_vs_market_pct;
+      if (pct < -5) return { text: 'Below Market', class: 'below' };
+      if (pct > 5) return { text: 'Above Market', class: 'above' };
+      return { text: 'At Market', class: 'at' };
+    }
+
+    function render() {
+      const hasData = data.teams_status === 'success' || data.teams_price > 0;
+
+      if (!hasData) {
+        document.getElementById('app').innerHTML = `
+          <div class="header">
+            <div>
+              <h1 class="vehicle-title">${data.year_make_model}</h1>
+              <div class="vehicle-meta">
+                <span>Stock #${data.stock_number || '—'}</span>
+                <span class="vin">${data.vin || '—'}</span>
+              </div>
+            </div>
+          </div>
+          <div class="empty-state">
+            <h2>No TEAMS Pricing Available</h2>
+            <p>Cost data is required for TEAMS pricing calculation.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const activeBandIndex = getActiveBandIndex(data.teams_cost_basis);
+      const marketPos = getMarketPosition();
+
+      // Calculate profit targets
+      const frontEndTarget = Math.round(data.teams_profit * PROFIT_TARGETS.front_pct);
+      const backEndTarget = Math.round(data.teams_profit * PROFIT_TARGETS.back_pct);
+
+      document.getElementById('app').innerHTML = `
+        <div class="header">
+          <div>
+            <h1 class="vehicle-title">${data.year_make_model}</h1>
+            <div class="vehicle-meta">
+              <span>Stock #${data.stock_number || '—'}</span>
+              <span>·</span>
+              <span class="vin">${data.vin || '—'}</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-secondary" onclick="location.reload()">Refresh</button>
+          </div>
+        </div>
+
+        <div class="hero-banner">
+          <div class="hero-content">
+            <h2>TEAMS Recommended Price</h2>
+            <div class="hero-price">${fmt.price(data.teams_price)}</div>
+          </div>
+          <div class="hero-badge ${marketPos.class}">${marketPos.text}</div>
+        </div>
+
+        <div class="formula-section">
+          <h3 class="formula-title">TEAMS Formula</h3>
+          <div class="formula-equation">
+            <div class="formula-box">
+              <div class="label">Cost Basis</div>
+              <div class="value">${fmt.price(data.teams_cost_basis)}</div>
+            </div>
+            <div class="formula-operator">×</div>
+            <div class="formula-box">
+              <div class="label">Rate</div>
+              <div class="value highlight">${data.teams_profit_rate}%</div>
+            </div>
+            <div class="formula-operator">=</div>
+            <div class="formula-box">
+              <div class="label">Target Profit</div>
+              <div class="value highlight">${fmt.price(data.teams_profit)}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bands-section">
+          <h3 class="section-title">TEAMS Rate Bands</h3>
+          <div class="bands-grid">
+            ${TEAMS_BANDS.map((band, i) => `
+              <div class="band-card ${i === activeBandIndex ? 'active' : ''}">
+                <div class="range">${band.label}</div>
+                <div class="rate">${band.rate}%</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="comparison-section">
+          <h3 class="section-title">Price Comparison</h3>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Price Type</th>
+                <th>Amount</th>
+                <th>vs TEAMS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="label">Cost Basis</td>
+                <td class="value">${fmt.price(data.teams_cost_basis)}</td>
+                <td class="delta">—</td>
+              </tr>
+              <tr>
+                <td class="label">TEAMS Price</td>
+                <td class="value primary">${fmt.price(data.teams_price)}</td>
+                <td class="delta">—</td>
+              </tr>
+              <tr>
+                <td class="label">Market Optimal</td>
+                <td class="value">${fmt.price(data.recommended_price)}</td>
+                <td class="delta ${data.teams_vs_market >= 0 ? 'positive' : 'negative'}">${fmt.delta(data.teams_vs_market)}</td>
+              </tr>
+              <tr>
+                <td class="label">Current Internet</td>
+                <td class="value">${fmt.price(data.price_internet)}</td>
+                <td class="delta ${(data.price_internet - data.teams_price) >= 0 ? 'positive' : 'negative'}">${fmt.delta(data.price_internet - data.teams_price)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="targets-section">
+          <h3 class="section-title">Profit Distribution Target</h3>
+          <div class="targets-grid">
+            <div class="target-card">
+              <div class="label">Front-End</div>
+              <div class="value">${fmt.price(frontEndTarget)}</div>
+              <div class="pct">33% of profit</div>
+            </div>
+            <div class="target-card">
+              <div class="label">Back-End (F&I)</div>
+              <div class="value">${fmt.price(backEndTarget)}</div>
+              <div class="pct">67% of profit</div>
+            </div>
+            <div class="target-card">
+              <div class="label">Total Target</div>
+              <div class="value" style="color: var(--red)">${fmt.price(data.teams_profit)}</div>
+              <div class="pct">per deal</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rate-card-section">
+          <h3 class="section-title">TEAMS Rate Card Reference</h3>
+          <table class="rate-table">
+            <thead>
+              <tr>
+                <th>Cost Range</th>
+                <th>Rate</th>
+                <th>Example Cost</th>
+                <th>Target Profit</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${TEAMS_BANDS.map((band, i) => {
+                const exampleCost = i === 0 ? 12000 : [17500, 25000, 35000, 45000, 55000][i-1];
+                const exampleProfit = Math.round(exampleCost * (band.rate / 100));
+                return `
+                  <tr class="${i === activeBandIndex ? 'highlight' : ''}">
+                    <td>${band.label}</td>
+                    <td>${band.rate}%</td>
+                    <td>${fmt.price(exampleCost)}</td>
+                    <td>${fmt.price(exampleProfit)}</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="footer">
+          <div class="footer-meta">
+            <div class="footer-item"><span>Stock:</span> ${data.stock_number || '—'}</div>
+            <div class="footer-item"><span>VIN:</span> ${data.vin || '—'}</div>
+          </div>
+          <span>TEAMS Pricing Intelligence</span>
+        </div>
+      `;
+    }
+
+    render();
+  </script>
+</body>
+</html>
